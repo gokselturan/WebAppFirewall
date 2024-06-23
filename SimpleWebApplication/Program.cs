@@ -5,6 +5,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
+// web firewall custom application
+builder.Services.AddSingleton<WebFirewall.CustomHeaderFilter>();
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
@@ -23,7 +26,6 @@ app.UseAuthorization();
 
 // web firewall
 app.UseMiddleware<WebFirewall.Init>();
-builder.Services.AddSingleton<WebFirewall.CustomHeaderFilter>();
 
 app.MapControllerRoute(
     name: "default",
